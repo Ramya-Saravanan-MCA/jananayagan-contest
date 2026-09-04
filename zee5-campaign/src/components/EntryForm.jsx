@@ -664,26 +664,36 @@ const EntryForm = ({ onSuccess }) => {
 
       {errors.file && <p className="mt-1 text-[8px] text-red-400">{errors.file}</p>}
 
-      <div className="mt-3 flex items-center gap-2">
-        <input
-          type="checkbox"
-          name="consent"
-          checked={formData.consent}
-          onChange={handleChange}
-          required
-          className="h-3.5 w-3.5 shrink-0 accent-pink-500"
-        />
+      <div className="mt-3 grid grid-cols-[16px_1fr] items-start gap-2">
+  <input
+    type="checkbox"
+    name="consent"
+    checked={formData.consent}
+    onChange={handleChange}
+    required
+    className="mt-0.5 h-3.5 w-3.5 shrink-0 accent-pink-500"
+  />
 
-        <div className="flex-1">
-          <label className="text-[9px] leading-4 text-gray-400">
-            I confirm that I have watched Jana Nayagan on ZEE5 and the information submitted above is
-            correct. I agree to the{" "}
-            <span className="text-purple-300 underline">Terms & Conditions</span>.
-          </label>
+  <div className="min-w-0">
+    <label className="block text-[9px] leading-4 text-gray-400">
+      I confirm that I have watched Jana Nayagan on ZEE5 and the information submitted above is
+      correct. I agree to the{" "}
+      <a
+        href="/terms-and-conditions"
+        className="text-purple-300 underline transition-colors hover:text-pink-400"
+      >
+        Terms & Conditions
+      </a>
+      .
+    </label>
 
-          {errors.consent && <p className="mt-1 text-[8px] text-red-400">{errors.consent}</p>}
-        </div>
-      </div>
+    {errors.consent && (
+      <p className="mt-1 text-[8px] text-red-400">
+        {errors.consent}
+      </p>
+    )}
+  </div>
+</div>
 
       <button
         type="submit"
