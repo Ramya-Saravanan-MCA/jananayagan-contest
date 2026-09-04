@@ -7,6 +7,14 @@
     {
       "source": "/admin/",
       "destination": "/index.html"
+    },
+    {
+      "source": "/terms-and-conditions",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/terms-and-conditions/",
+      "destination": "/index.html"
     }
   ]
 }
