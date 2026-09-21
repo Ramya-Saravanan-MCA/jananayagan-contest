@@ -3,6 +3,7 @@ import FileUpload from "./FileUpload";
 import { supabase } from "../lib/supabase";
 
 const EntryForm = ({ onSuccess }) => {
+  const CONTEST_CLOSED = true;
   const [file, setFile] = useState(null);
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
@@ -328,6 +329,8 @@ const EntryForm = ({ onSuccess }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (CONTEST_CLOSED) return;
+
     if (submitting) return;
 
     if (!validateForm()) {
@@ -468,10 +471,13 @@ const EntryForm = ({ onSuccess }) => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="w-full max-w-[760px] rounded-xl border border-purple-500/30 bg-[#070719]/90 p-5 shadow-[0_0_40px_rgba(124,58,237,0.10)]"
-    >
+    <div className="relative w-full max-w-[760px]">
+      <form
+        onSubmit={handleSubmit}
+        className={`w-full rounded-xl border border-purple-500/30 bg-[#070719]/90 p-5 shadow-[0_0_40px_rgba(124,58,237,0.10)] ${
+          CONTEST_CLOSED ? "pointer-events-none opacity-40 grayscale" : ""
+        }`}
+      >
       <div className="mb-4 flex items-center gap-3 border-b border-purple-500/20 pb-3">
         <div className="flex h-8 w-8 items-center justify-center rounded-full border border-purple-400/60 bg-purple-500/10 text-sm text-purple-300">
           ♙
@@ -710,7 +716,57 @@ const EntryForm = ({ onSuccess }) => {
           <span className="text-sm transition-transform duration-300 group-hover:translate-x-1">→</span>
         )}
       </button>
-    </form>
+      </form>
+
+      {CONTEST_CLOSED && (
+  <div className="absolute inset-0 z-20 flex items-center justify-center rounded-xl bg-black/35 backdrop-blur-[3px]">
+    <div className="relative mx-6 w-full max-w-[430px] overflow-hidden rounded-3xl p-[1px]">
+
+      {/* Moving gradient border */}
+      <div
+        className="absolute inset-[-150%] animate-[spin_5s_linear_infinite]"
+        style={{
+          background:
+            "conic-gradient(from 0deg, transparent 0deg, transparent 220deg, #a855f7 270deg, #ec4899 310deg, #6366f1 340deg, transparent 360deg)",
+        }}
+      />
+
+      {/* Card */}
+      <div className="relative rounded-3xl border border-white/10 bg-[#08081b]/95 px-8 py-9 text-center backdrop-blur-xl">
+
+        {/* Small top accent */}
+        <div className="mx-auto mb-5 flex items-center justify-center gap-3">
+          <span className="h-px w-10 bg-gradient-to-r from-transparent to-purple-400" />
+          <span className="text-[10px] tracking-[0.45em] text-purple-300">
+            JANANAYAGAN
+          </span>
+          <span className="h-px w-10 bg-gradient-to-l from-transparent to-purple-400" />
+        </div>
+
+        <div className="mb-4 text-3xl">
+          🎬
+        </div>
+
+        <h3 className="text-2xl font-bold tracking-tight text-white">
+          ENTRIES CLOSED
+        </h3>
+
+        <p className="mx-auto mt-4 max-w-[300px] text-sm leading-6 text-gray-400">
+          The giveaway has officially come to an end.
+        </p>
+
+        <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-purple-400/20 bg-purple-500/10 px-4 py-2">
+          <span className="h-1.5 w-1.5 rounded-full bg-purple-400 shadow-[0_0_10px_#a855f7]" />
+          <span className="text-[9px] font-medium tracking-[0.25em] text-purple-200">
+            THANK YOU FOR PARTICIPATING
+          </span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+)}
+    </div>
   );
 };
 
