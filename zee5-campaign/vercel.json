@@ -9,6 +9,14 @@
       "destination": "/index.html"
     },
     {
+      "source": "/admin/login",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/admin/login/",
+      "destination": "/index.html"
+    },
+    {
       "source": "/terms-and-conditions",
       "destination": "/index.html"
     },
